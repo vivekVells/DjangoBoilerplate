@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+    
+        <title>Inspection Task Mapper</title>
+    
+        <!-- Bootstrap core CSS -->
+        <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+        <!-- Bootstrap theme -->
+        <!--<link href="{% static 'bootstrap/bootstrap-theme.min.css' %}" rel="stylesheet">-->
+    
+        <!-- Custom styles for this template -->
+        <link href="{% static 'bootstrap/sign.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container theme-showcase" role="main">
+            <div class="jumbotron">
+                <h1>Log In Page</h1>
+            </div>
+        </div>
+
+        <div class="container">
+            <form class="form-signin" method="POST" action="{% url 'index' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="inputName" class="sr-only">Username</label>
+                    {{form.username}}
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    {{form.password}}
+                </div>
+                <div>
+                    {{message}}
+                </div>
+                <br>
+                <center>
+                    <button class="btn btn-lg btn-primary" type="submit">Log In</button>
+                </center>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+    
+        <title>Employee Time Clock v1.0</title>
+    
+        <!-- Bootstrap core CSS -->
+        <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+        <!-- Bootstrap theme -->
+        <!--<link href="{% static 'bootstrap/bootstrap-theme.min.css' %}" rel="stylesheet">-->
+    
+        <!-- Custom styles for this template -->
+        <link href="{% static 'bootstrap/sign.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container theme-showcase">
+            <div>
+                <h1><center>Inspection Task Mapper Home Page</center> </h1>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-left">
+                                Logged in as {{userRef}} 
+                            </td>
+                            <td class="text-right">
+                            <a href="{% url 'logout' %}" class="btn btn-md btn-primary">Logout</a>
+                        </td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <br><br>
+            <div class="row"> 
+                    <div class="table-responsive col-md-2">
+                        <form method="POST" action="{% url 'home' %}">
+                            {% csrf_token %}
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>In/Out:
+                                            <br>
+                                            <div>                                                
+                                                <select name='status_drop'>
+                                                    <option selected></option>
+                                                    {% for status in statuses %}
+                                                    <option>{{status.types}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Notes:
+                                            <br>
+                                            {{logstatus.notes}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td> <br>
+                                            <button class="btn btn-sm btn-primary">Submit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                <div class="table-responsive col-md-10">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>taskname</th>
+                                <th>taskinstruction</th>
+                                <!--<th>Time</th>-->
+                                <!--<th>Date</th>-->
+                                <!--<th>Group</th>-->
+                                <!--<th>Notes</th>-->
+                            </tr>
+                        </thead>
+                        {% for ws in ws_desc %}
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {{ws.employee.employeeinfo_set.all.0.last_name}}, {{ws.employee.employeeinfo_set.all.0.first_name}}
+                                </td>
+                                <td>
+                                    {{ws.work_status}}
+                                </td>
+                                <!--<td>-->
+                                    <!--{{ws.time}}-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                    <!--{{ws.date}}-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                    <!--{{ws.employee.employeeinfo_set.all.0.department}}-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                    <!--{{ws.notes}}-->
+                                <!--</td>-->
+                            </tr>
+                        </tbody>    
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
